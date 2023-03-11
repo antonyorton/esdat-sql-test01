@@ -31,7 +31,7 @@ def get_info(name):
 
     try:
         sqlcon = create_engine('mssql+pyodbc://@' + server + '/' + database + '?driver=SQL+Server')
-
+        print('connection ok')
         with sqlcon.begin() as conn:
 
             mydict = dict()
@@ -43,7 +43,7 @@ def get_info(name):
             df = df[['Well', 'TOC', 'Top_Screen_Depth', 'Bottom_Screen_Depth']]
             myjson = df.to_json(orient='records')
             mydict['03-Well'] = json.loads(myjson)
-    
+
             ### location details
             df = pd.read_sql(sql=text(querystring_locs),con=conn)
             df = df.loc[df['Location_Code'] == name]
@@ -92,4 +92,4 @@ def handle_exception(e):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
