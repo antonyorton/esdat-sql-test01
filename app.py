@@ -14,12 +14,12 @@ app = Flask(__name__)
 
 server = os.getenv('ESDAT_SERVER')
 database = os.getenv('ESDAT_DATABASE')
+esdat_pid = os.getenv('ESDAT_PID')  #PID is EsDAT project identification number
 
-
-querystring_locs = "SELECT * FROM Locations WHERE PID = 296" #PID=296 is M6 project
-querystring_mandips = "SELECT * FROM Groundwater_and_NAPL_Levels WHERE PID = 296"
-querystring_wells = "SELECT * FROM Wells WHERE PID = 296;"
-querystring_boreholes = "SELECT * FROM Boreholes WHERE PID = 296;"
+querystring_locs = "SELECT * FROM Locations WHERE PID = " + esdat_pid  number
+querystring_mandips = "SELECT * FROM Groundwater_and_NAPL_Levels WHERE PID = " + esdat_pid
+querystring_wells = "SELECT * FROM Wells WHERE PID = " + esdat_pid
+querystring_boreholes = "SELECT * FROM Boreholes WHERE PID = " + esdat_pid
 
 
 @app.route('/')
