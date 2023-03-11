@@ -16,7 +16,7 @@ server = os.getenv('ESDAT_SERVER')
 database = os.getenv('ESDAT_DATABASE')
 esdat_pid = os.getenv('ESDAT_PID')  #PID is EsDAT project identification number
 
-querystring_locs = "SELECT * FROM Locations WHERE PID = " + esdat_pid  number
+querystring_locs = "SELECT * FROM Locations WHERE PID = " + esdat_pid
 querystring_mandips = "SELECT * FROM Groundwater_and_NAPL_Levels WHERE PID = " + esdat_pid
 querystring_wells = "SELECT * FROM Wells WHERE PID = " + esdat_pid
 querystring_boreholes = "SELECT * FROM Boreholes WHERE PID = " + esdat_pid
