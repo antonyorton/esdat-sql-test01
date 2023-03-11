@@ -30,7 +30,9 @@ def index():
 def get_info(name):
 
     try:
-        sqlcon = create_engine('mssql+pyodbc://@' + server + '/' + database + '?driver=SQL+Server')
+        # sqlcon = create_engine('mssql+pyodbc://@' + server + '/' + database + '?driver=SQL+Server')
+        sqlcon = create_engine('mssql+pyodbc://@' + server + '/' + database + '?driver=SQL+Server?Trusted_Connection=yes')
+
         print('connection ok')
         with sqlcon.begin() as conn:
 
@@ -73,9 +75,10 @@ def get_info(name):
         parsed = json.loads(json.dumps(mydict))
         return parsed
 
-    except:
+    except Exception as e:
         print('Error connecting to EsDAT database - you must be connected to the company network')
-        return 'Error connecting to EsDAT database - you must be connected to the company network'
+        print(e)
+        return e
 
 
 #Please note: error handling is not yet done on this app
