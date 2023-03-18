@@ -13,10 +13,16 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
+# #DEVELOPMENT ENVIRO SETUP
+# server = os.getenv('ESDAT_SERVER')
+# database = os.getenv('ESDAT_DATABASE')
+# esdat_pid = os.getenv('ESDAT_PID')  #PID is EsDAT project identification number
 
-server = os.getenv('ESDAT_SERVER')
-database = os.getenv('ESDAT_DATABASE')
-esdat_pid = os.getenv('ESDAT_PID')  #PID is EsDAT project identification number
+#PRODUCTION ENVIRO SETUP
+server = os.environ('ESDAT_SERVER')
+database = os.environ('ESDAT_DATABASE')
+esdat_pid = os.environ('ESDAT_PID')  #PID is EsDAT project identification number
+
 
 querystring_locs = "SELECT * FROM Locations WHERE PID = " + esdat_pid
 querystring_mandips = "SELECT * FROM Groundwater_and_NAPL_Levels WHERE PID = " + esdat_pid
@@ -26,7 +32,7 @@ querystring_boreholes = "SELECT * FROM Boreholes WHERE PID = " + esdat_pid
 
 @app.route('/')
 def home():
-   return render_template('index.html')
+   return 'hello matey'
 
 @app.route('/loc/<name>')
 def get_info(name):
@@ -96,5 +102,5 @@ def handle_exception(e):
     return 'error'
 
 
-# if __name__ == "__main__":
-#     app.run()
+if __name__ == "__main__":
+    app.run()
