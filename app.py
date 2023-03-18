@@ -13,16 +13,16 @@ app = Flask(__name__)
 
 # CORS(app)
 
-# #DEVELOPMENT ENVIRO SETUP
-# load_dotenv()
-# server = os.getenv('ESDAT_SERVER')
-# database = os.getenv('ESDAT_DATABASE')
-# esdat_pid = os.getenv('ESDAT_PID')  #PID is EsDAT project identification number
+#DEVELOPMENT ENVIRO SETUP (AND PRODUCTION ON RENDER)
+load_dotenv()
+server = os.getenv('ESDAT_SERVER')
+database = os.getenv('ESDAT_DATABASE')
+esdat_pid = os.getenv('ESDAT_PID')  #PID is EsDAT project identification number
 
-#PRODUCTION ENVIRO SETUP
-server = os.environ['ESDAT_SERVER']
-database = os.environ['ESDAT_DATABASE']
-esdat_pid = os.environ['ESDAT_PID']  #PID is EsDAT project identification number
+# #PRODUCTION ENVIRO SETUP (AZURE)
+# server = os.environ['ESDAT_SERVER']
+# database = os.environ['ESDAT_DATABASE']
+# esdat_pid = os.environ['ESDAT_PID']  #PID is EsDAT project identification number
 
 
 querystring_locs = "SELECT * FROM Locations WHERE PID = " + esdat_pid
