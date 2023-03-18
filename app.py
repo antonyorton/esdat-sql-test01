@@ -20,9 +20,9 @@ app = Flask(__name__)
 # esdat_pid = os.getenv('ESDAT_PID')  #PID is EsDAT project identification number
 
 #PRODUCTION ENVIRO SETUP
-server = os.environ('ESDAT_SERVER')
-database = os.environ('ESDAT_DATABASE')
-esdat_pid = os.environ('ESDAT_PID')  #PID is EsDAT project identification number
+server = os.environ['ESDAT_SERVER']
+database = os.environ['ESDAT_DATABASE']
+esdat_pid = os.environ['ESDAT_PID']  #PID is EsDAT project identification number
 
 
 querystring_locs = "SELECT * FROM Locations WHERE PID = " + esdat_pid
