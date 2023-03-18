@@ -1,11 +1,11 @@
 from flask import Flask, render_template
 import os
 import json
-from flask_cors import CORS
+# from flask_cors import CORS
 import html
 
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
 
 @app.route('/')
 def home():
