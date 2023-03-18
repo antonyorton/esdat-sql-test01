@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'ortonflasksql'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_836FD982F03E4200B5D5DFDF94B14669 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_720B98E915AD4222B5875F75B62EE650 }}
