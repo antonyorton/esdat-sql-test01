@@ -96,5 +96,5 @@ def handle_exception(e):
     return 'error'
 
 
-if __name__ == "__main__":
-    app.run()
+# if __name__ == "__main__":
+#     app.run()
