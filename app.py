@@ -6,10 +6,12 @@ from werkzeug.exceptions import HTTPException
 from dotenv import load_dotenv
 import os
 import json
+from flask_cors import CORS
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 
 server = os.getenv('ESDAT_SERVER')
@@ -26,39 +28,39 @@ querystring_boreholes = "SELECT * FROM Boreholes WHERE PID = " + esdat_pid
 def index():
     return 'hi matey'
 
-@app.route('/<name>')
+@app.route('/loc/<name>')
 def get_info(name):
 
     try:
         # sqlcon = create_engine('mssql+pyodbc://@' + server + '/' + database + '?driver=SQL+Server')
         sqlcon = create_engine('mssql+pyodbc://@' + server + '/' + database + '?driver=SQL+Server?Trusted_Connection=yes')
 
-        print('connection ok')
+        
         with sqlcon.begin() as conn:
 
             mydict = dict()
-            mydict['00-Name'] = name
+            mydict['name'] = name
 
             ### well details
             df = pd.read_sql(sql=text(querystring_wells),con=conn)
             df = df.loc[df['Location_Code'] == name]
             df = df[['Well', 'TOC', 'Top_Screen_Depth', 'Bottom_Screen_Depth']]
             myjson = df.to_json(orient='records')
-            mydict['03-Well'] = json.loads(myjson)
+            mydict['well'] = json.loads(myjson)
 
             ### location details
             df = pd.read_sql(sql=text(querystring_locs),con=conn)
             df = df.loc[df['Location_Code'] == name]
             df = df[['x_coord', 'y_coord', 'Elevation']]
             myjson = df.to_json(orient='records')
-            mydict['01-Location'] = json.loads(myjson)
+            mydict['location'] = json.loads(myjson)
 
             ### borehole details
             df = pd.read_sql(sql=text(querystring_boreholes),con=conn)
             df = df.loc[df['Location_Code'] == name]
             df = df[['Bearing', 'Plunge']]
             myjson = df.to_json(orient='records')
-            mydict['02-Borehole'] = json.loads(myjson)
+            mydict['borehole'] = json.loads(myjson)
 
             ### manual dips
             df = pd.read_sql(sql=text(querystring_mandips),con=conn)
@@ -70,7 +72,7 @@ def get_info(name):
 
             df = df[['Date_Time', 'Water_Depth']]
             myjson = df.to_json(orient='records')
-            mydict['04-Manual depth to groundwater'] = json.loads(myjson)
+            mydict['depth_to_groundwater'] = json.loads(myjson)
 
         parsed = json.loads(json.dumps(mydict))
         return parsed
@@ -95,4 +97,4 @@ def handle_exception(e):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
