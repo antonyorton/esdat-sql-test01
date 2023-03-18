@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 import pandas as pd
 import sqlalchemy
 from sqlalchemy import create_engine, text
@@ -25,8 +25,8 @@ querystring_boreholes = "SELECT * FROM Boreholes WHERE PID = " + esdat_pid
 
 
 @app.route('/')
-def index():
-    return 'hi matey'
+def home():
+   return render_template('index.html')
 
 @app.route('/loc/<name>')
 def get_info(name):
